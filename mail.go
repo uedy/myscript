@@ -25,13 +25,14 @@ func main() {
 	rows, err := db.Query("SELECT user_id, setting FROM user_mail_settings")
 	id := ""
 	settings := ""
-	setting := []string{}
+	var decode_data interface{}
 	for rows.Next() {
 		err = rows.Scan(&id, &settings)
+
 		checkError(err)
 		fmt.Println(id, settings)
 
-		json.Unmarshal(settings, &setting)
+		json.Unmarshal(json(settings), &decode_data)
 	}
 }
 
